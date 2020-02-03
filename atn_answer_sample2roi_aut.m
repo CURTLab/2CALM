@@ -1,0 +1,86 @@
+options.Interpreter = 'tex';
+options.Default = 'New sample';
+button = questdlg('\fontsize{12}Do you want to regionalize the loaded samples or load a new sample',...
+    'ROI','Sample 1','Sample 2','New sample',options);
+switch button
+    case 'Sample 1'
+      clc
+      if exist('dat1','var')==0 || isempty(dat1)==1
+       helpdlg('Sample 1 do not exists','message')   
+       A_start;
+      end
+      dat=dat1;
+      colhead=colhead1;
+      fullpath=fullpath1;
+      exname=exname1;
+      xi=xi1;
+      zi=zi1;
+      yi=yi1;
+      lasti=lasti1;
+      sxi=sxi1;
+      szi=szi1;
+      rgi=rgi1;
+      rgfi=rgfi1;
+      rgsi=rgsi1;
+      dirname=dirname1;
+      N=N1;
+      plot_original_data_12d(dat1(:,xi1),dat1(:,yi1),dat1(:,zi1),exname1);
+      atn_region_sample;
+      dat1=dat;
+      colhead1=colhead;
+      rgi1=rgi;
+      rgfi1=rgfi;
+      rgsi1=rgsi;
+      lasti1=size(colhead1,2);
+      clear('button')
+      clear('dat','colhead','fullpath','exname','xi','yi','zi',...
+      'lasti','sxi','szi','rgi','rgfi','rgsi','dirname','N');
+      quit cancel;
+     
+    case 'Sample 2'
+      clc
+      if exist('dat2','var')==0 || isempty(dat1)==1
+       helpdlg('Sample 2 do not exists','message')   
+       A_start;
+      end
+      dat=dat2;
+      colhead=colhead2;
+      fullpath=fullpath2;
+      exname=exname2;
+      xi=xi2;
+      zi=zi2;
+      yi=yi2;
+      lasti=lasti2;
+      sxi=sxi2;
+      szi=szi2;
+      rgi=rgi2;
+      rgfi=rgfi2;
+      rgsi=rgsi2;
+      dirname=dirname2;
+      N=N2;
+      plot_original_data_12d(dat2(:,xi2),dat2(:,yi2),dat(:,zi2),exname2);
+      atn_region_sample;
+      dat2=dat;
+      colhead2=colhead;
+      rgi2=rgi;
+      rgfi2=rgfi;
+      rgsi2=rgsi;
+      lasti2=size(colhead2,2);
+      clear('button')
+      clear('dat','colhead','fullpath','exname','xi','yi','zi',...
+      'lasti','sxi','szi','rgi','rgfi','rgsi','dirname','N');
+      quit cancel;
+      
+    case 'New sample'
+      clc
+try
+      ROI_Load;
+catch
+      helpdlg('Calculations had been aborted','load message')
+      A_start;
+end
+      clear('button');
+      atn_region_sample;
+      quit cancel;
+   
+end
