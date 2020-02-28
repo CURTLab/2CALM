@@ -22,6 +22,7 @@ if A>1
 pvalM=bot_pvalM;
 cvalM=bot_cvalM;
 rys_bootstrap; 
+tt_meandensity_meanlarge;
 tt_rys_resam_detail_dens;
 tt_rys_resam_genr_dens;
 rys_bootstrap_total;

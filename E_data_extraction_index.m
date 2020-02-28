@@ -46,7 +46,7 @@ t = strcmpi('x',colhead);
   t = strcmpi('intensity',colhead);
   ini=find(t>0); 
   if isempty(ini)==1
-      msgbox('"intensity" header could not be found. Intensity will be default generated')
+      hh=msgbox('"intensity" header could not be found. Intensity will be default generated');
       u=normrnd(3100,750,[L,1]);
       u=max(u,500);
       colhead(:,end+1)={'intensity'};
@@ -57,7 +57,7 @@ t = strcmpi('x',colhead);
  t = strcmpi('PA',colhead);
  sxi=find(t>0);
   if isempty(sxi)==1
-      msgbox('"pa" header could not be found. The point xy-accuracy will be default generated')
+      hh=msgbox('"pa" header could not be found. The point xy-accuracy will be default generated');
       u=normrnd(30,6,[L,1]);
       u=max(u,5);
       colhead(:,end+1)={'PA'};
@@ -70,7 +70,7 @@ t = strcmpi('x',colhead);
  t = strcmpi('PAZ',colhead); 
  szi=find(t>0);
   if isempty(szi)==1
-      msgbox('"paz" header could not be found. The point z-accuracy will be default generated')
+     hh= msgbox('"paz" header could not be found. The point z-accuracy will be default generated');
       u=normrnd(180,35,[L,1]);
       u=max(u,55.5);
       colhead(:,end+1)={'PAZ'};
@@ -81,7 +81,7 @@ t = strcmpi('x',colhead);
   t = strcmpi('frame',colhead); 
   fri=find(t>0);
   if isempty(fri)==1
-      msgbox('"frame" header could not be found. The frame number will be generated')
+      hh=msgbox('"frame" header could not be found. The frame number will be generated');
       if L<=19990
       u= (1:1:L)';
       else
@@ -92,4 +92,5 @@ t = strcmpi('x',colhead);
       fri=size(colhead,2);
   end
   lasti=size(colhead,2);
+
 end

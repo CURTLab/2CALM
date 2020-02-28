@@ -59,7 +59,7 @@ OUU=[OUU',ou']';
 clc
 mlp_info_update;
 disp(['Number of training data = ',num2str(size(OUU,1))])
-save('MLP.mat','INN','OUU','no_pair')
+save('MLP.mat','INN','OUU','no_pair','net')
 clear('in','ou')
 clear('INN','OUU','no_pair','net')
 
@@ -67,10 +67,15 @@ clear('INN','OUU','no_pair','net')
 clc
 load ('MLP.mat')
 disp('Retrain of MLP net')
+
 mlp_answer_neurons;
+if exist('NeuronNumber','var')==0 || isnan(NeuronNumber)== 1
+A_start;
+else
 [missc,net] = nntest_nn(INN,OUU,NeuronNumber);
 nntraintool close
 save('MLP.mat','INN','OUU','no_pair','net')
 disp('MLP net is ready to use')
+end
 
 
