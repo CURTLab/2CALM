@@ -44,7 +44,7 @@ elseif task==9
    clear('btn','button','task')
 
 elseif task==10
-    A_random_generator;
+    stop_randomizing;
     clear('btn','button','task')
 
 elseif task==11
@@ -65,7 +65,7 @@ elseif task==14
         clear('hh11')
         clear('btn','button','task')
         A_start;
-     end
+   end
     clear('btn','button','task')  
 
 %%%%%%%%%%%%%%%%%%%% Analysis %%%%%%%%%%%%%

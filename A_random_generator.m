@@ -2,7 +2,7 @@ clc
 rng('default')
 
 if exist('dat1','var')==0 || exist('dat2','var')==0 
-    hhbd=msgbox('The data are incomplete. Please load the data1 and data');
+    hhbd=msgbox('The data are incomplete. Please load the data 1 and dat a2');
     msgboxFontSize(hhbd,12);
     clear('hhbd','ans')
     clc
@@ -27,7 +27,7 @@ if exist('N2or','var')== 0
     N2or=N2;
     dat2or=dat2;
 end
-
+stop
 if exist('Z2ori','var')== 0
 tic
 Nmaxor=70000;
@@ -244,7 +244,7 @@ save(tekst,'par')
 clear('par','tekst','tekst1')
 catch
 clear('par','tekst','tekst1')
-msgbox('Fullpath is not correct. Please check the first sample name')
+msgbox('Fullpath1 is not correct. Please check the first sample name')
 clc
 A_start;
 end
@@ -403,13 +403,14 @@ A_plot_random_pair;
 try
 load(fullpath2);
 par.pkmatrix=datran;
+exn2 = strrep(exname2,'-','_');
 tekst1=['Random_',exname2,'.mat'];
 tekst=[dirname2,tekst1];
 save(tekst,'par')
 clear('par','tekst','tekst1')
 catch
  clear('par','tekst','tekst1')
-msgbox('Fullpath is not correct. Please check the second sample name')
+msgbox('Fullpath2 is not correct. Please check the second sample name')
 clc
 A_start;   
 end    

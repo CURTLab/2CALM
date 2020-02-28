@@ -32,7 +32,7 @@ elseif contains(exname2,'blue')==1
 else
     te2='';
 end   
-
+answer_pair_nr;
 if strcmp(te1,te2)==0
 te = [num2str(para_nr),'-',te1,'-',te2] ;
 else
