@@ -40,7 +40,12 @@ IMPORT DATA FROM EXCEL
   with default values typical for this type of nanoscopic samples.
 
 
-
+# License
 Copyright 2018 - 2020 Jaroslaw Jacak, 
 Medical Engineering Dept. Upper Austria University od Applied Sciences, Linz, Austria
 This code may be freely used and distributed, so long as it maintains this copyright line
+
+# Citation
+Please cite our paper: `Mayr S, Hauser F, Puthukodan S, Axmann M, Göhring J, et al. (2020) Statistical analysis of 3D localisation microscopy images for quantification of membrane protein distributions in a platelet clot model. PLOS Computational Biology 16(6): e1007902. https://doi.org/10.1371/journal.pcbi.1007902`
+
+Link to paper: https://journals.plos.org/ploscompbiol/article/citation?id=10.1371/journal.pcbi.1007902
