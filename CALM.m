@@ -45,17 +45,17 @@
 % Medical Engineering Dept. Upper Austria University od Applied Sciences, Linz, Austria
 % This code may be freely used and distributed, so long as it maintains this copyright line
 
+addpath('source')
 
+Figure_start;
+clear('scrsz','T')
 
-  Figure_start;
-  clear('scrsz','T')
- try
-  A_start;
- catch
-      clc
-      disp('The program was aborted by the user')
-   %user_stops
- end
+try
+    A_start;
+catch
+    clc
+    disp('The program was aborted by the user')
+end
   
   
   

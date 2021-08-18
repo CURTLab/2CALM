@@ -1,0 +1,33 @@
+%%%%%%%%%% List of tasks %%%%%%%%%%%%%%%%%%%%%%%%%%
+lista_vis={'PRIMARY Cluster 3D',...
+            'PRIMARY Cluster 2D',...
+            'PRIMARY Cluster Hulls',...
+            'PIMARY Single Cluster',...
+            'CLUSTER DENSITY MAP',...
+            'CLUSTER INTENSITY MAP',...
+            'STANDARD Cluster Hulls',...
+            'STANDARD Single Cluster.',...
+            'STANDARD Single Sphere',...
+            'STANDARD Single Conv.Hull',...
+            'Cancel'};
+
+
+if exist('dat1','var')==0 || exist('dat2','var')==0
+      status=0;    
+      a_info_load; 
+      A_start;
+elseif isempty(dat1)==1 ||  isempty(dat2)==1 
+      status=0;    
+      a_info_load; 
+      A_start;  
+end
+
+n=max(size(dat2,1),size(dat1,1));
+xte=['Sample ',num2str(n),' points'];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+figure(2000)
+whitebg([0.8 0.5 0.1])
+close figure 2000
+bild=menu_w_sub(xte,lista_vis);
+clear('lista_vis','n','xte')
+ 
