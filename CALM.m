@@ -54,7 +54,7 @@
  catch
       clc
       disp('The program was aborted by the user')
-   user_stops
+   %user_stops
  end
   
   
