@@ -13,7 +13,7 @@ function K = RipleysK3D(pos,pdistm,dist,box,method)
 %   
 
 
-genau=1;
+genau=0;
 % genau=0 volumen of sample as vol bounding box
 % genau=1 volumen of sample as vol convexhull
 if nargin<4

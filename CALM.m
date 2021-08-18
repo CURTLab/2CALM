@@ -31,7 +31,7 @@
 %   Excel data spreadsheet  must be column-oriented and  must have at least 3 columns 
 %   (3D point localizations) with column headers "x", "y", "z".
 %   If possible, the following additional columns should contain :
-%   - position accuracy (in nm) in x and y with header "pa",
+%   - position accuracy (in nm) in xy with header "pa",
 %   - position accuracy (in nm) along the axis z with header "paz",
 %   - intensity of the point with the header "intensity",
 %   - and the frame number with the "frame" header.
@@ -50,11 +50,11 @@
   Figure_start;
   clear('scrsz','T')
  try
-   A_start;
+  A_start;
  catch
-  clc
-    disp('The program was aborted by the user')
-    %user_stops
+      clc
+      disp('The program was aborted by the user')
+   user_stops
  end
   
   

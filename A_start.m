@@ -53,18 +53,18 @@ catch
     clear('hh')
 end
 
-            try
+            %try
 A_menu;
 A_control
 clear('task')
 A_start;
-            catch
-                clc
-                disp('The program was aborted by the user')
-                pause(0.01)
-                user_stops;
+            %catch
+                %clc
+                %disp('The program was aborted by the user')
+                %pause(0.01)
+                %user_stops;
 
-            end
+            %end
 
 
 
