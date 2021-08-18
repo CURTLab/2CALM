@@ -12,10 +12,8 @@ fullpath = fullfile(dirname,pathname);
 load(fullpath);
 exname=pathname;
 clear('datacell','pathname')
-exname = strrep(exname,'.mat','');
-
 exname = strrep(exname,'_','-');
-
+exname = strrep(exname,'.mat','');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 data_test= exist('par','var');

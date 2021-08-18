@@ -1,7 +1,6 @@
 function [dens,den_av,cur,cur_av]=feature_dens_primitiv_plus(cl,pos,grose,mu,sig,midi)
-
-%%%%%%%  density box %%%%%%%%%%%%
 %disp('feature calculation bullet')
+%%%%%%%  density box %%%%%%%%%%%%
 
     S=max(cl);
     dens(1:S,1)=0;
@@ -68,16 +67,8 @@ function [dens,den_av,cur,cur_av]=feature_dens_primitiv_plus(cl,pos,grose,mu,sig
   dens(j) = n/V;  
   cur(j)= curvature(postem);
   end
-  
-  up=mean(dens);
-  if isinf(up)== 1
-   den_av =median(dens);
-  else
-   den_av = mean(dens);  
-  end
-  
+  den_av = mean(dens);
   cur_av = mean(cur);
- 
 
 end
 
