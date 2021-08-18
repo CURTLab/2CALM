@@ -163,6 +163,7 @@ elseif task==20
 elseif task==21
     close all
     clear('btn','button','task')
-    user_stop
+    finish
+    %user_stop
 end
 
