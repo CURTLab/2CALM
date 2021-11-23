@@ -16,7 +16,7 @@ figure ( 'WindowStyle', 'normal', ...  %%%'normal'
                   'ToolBar' 	,'none', ...
                   'Position',[scrsz(3)/5 scrsz(4)/1.18 scrsz(4)/0.8 scrsz(4)/10.25]);
 whitebg(get(gcf,'color'));
-text(0.05,0.75,['The last MLP test is saved as Test Nr ',num2str(test_nr),' in the current directory of the first sample'],'Fontsize',12,'Fontweight','bold')
+text(0.05,0.75,['The current MLP test is saved as Test Nr ',num2str(para_nr),' in the current directory of the first sample'],'Fontsize',12,'Fontweight','bold')
 text(0.05,0.35,exname1,'Fontsize',12,'Fontweight','bold')
 ax = gca;
 ax.XColor = get(gcf,'color');

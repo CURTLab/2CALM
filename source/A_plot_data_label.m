@@ -14,8 +14,11 @@ close figure 2000
       A_start;  
     end
 
-
-
+if exist('para_nr','var')==1
+    tt=num2str(para_nr);
+else
+    tt='new pair';
+end
 
 
 if exist('dat2','var')==1
@@ -29,10 +32,12 @@ figure ( 'WindowStyle', 'normal', ...  %%%'normal'
                   'Colormap'    ,[], ...
                   'MenuBar'     ,'none',...
                   'ToolBar' 	,'none', ...
-                  'Position',[scrsz(3)/5 scrsz(4)/1.18 scrsz(4)/0.8 scrsz(4)/10.25]);
+                  'Position',[scrsz(3)/5 scrsz(4)/1.25 scrsz(4)/0.8 scrsz(4)/7.25]);
 whitebg(get(gcf,'color'));
 text(0.01,0.75,['Sample 1:   ',exname1,': ',num2str(N1),' points'],'Fontsize',12,'Fontweight','bold')
-text(0.01,0.35,['Sample 2:   ',exname2,': ',num2str(N2),' points'],'Fontsize',12,'Fontweight','bold')
+text(0.01,0.45,['Sample 2:   ',exname2,': ',num2str(N2),' points'],'Fontsize',12,'Fontweight','bold')
+text(0.01,0.18,['Number of pair :   ',tt],'Fontsize',12,'Fontweight','bold')
+
 ax = gca;
 
 

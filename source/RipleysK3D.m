@@ -13,9 +13,10 @@ function K = RipleysK3D(pos,pdistm,dist,box,method)
 %   
 
 
-genau=0;
+genau=1;
 % genau=0 volumen of sample as vol bounding box
 % genau=1 volumen of sample as vol convexhull
+
 if nargin<4
     method=1; 
 end
@@ -67,12 +68,8 @@ lambda = N/v;
 else
 lambda = N/((box(2)-box(1))*(box(4)-box(3))*(box(6)-box(5)));
 end
+lambda=1;
 K = K/lambda;
-
-
-
-
-
 
 end
 

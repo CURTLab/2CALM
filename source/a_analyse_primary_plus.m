@@ -16,7 +16,7 @@ plot_reduction;
 A_warnung_small_sample;
 
 tim=min(N1,N2); 
-tim=1.3*(comp_time(tim)/60);
+tim=tim*(5/1000)/60;
 tim=round(tim,2);
 
 hh=msgbox(['DB-Scan Clustering. It will take a few minutes. (',num2str(tim),' min) Please wait.'],'INFO');

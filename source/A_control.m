@@ -44,7 +44,7 @@ elseif task==9
    clear('btn','button','task')
 
 elseif task==10
-    A_random_generator;
+    stop_randomizing;
     clear('btn','button','task')
 
 elseif task==11
@@ -65,7 +65,7 @@ elseif task==14
         clear('hh11')
         clear('btn','button','task')
         A_start;
-     end
+   end
     clear('btn','button','task')  
 
 %%%%%%%%%%%%%%%%%%%% Analysis %%%%%%%%%%%%%
@@ -146,7 +146,7 @@ elseif task==15
 
 elseif task==18
     clear('btn','button','task')
-    A_save_res; 
+    A_save_res_inter; 
 
 elseif task==19
     clear('btn','button','task')
@@ -163,7 +163,6 @@ elseif task==20
 elseif task==21
     close all
     clear('btn','button','task')
-    finish
-    %user_stop
+    user_stop
 end
 

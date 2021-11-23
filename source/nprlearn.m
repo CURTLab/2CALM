@@ -12,7 +12,8 @@ u=neurons;
    % netz=newpr(in,ou,u);
     netz.layers{2}.transferFcn = 'softmax';
     netz.layers{1}.transferFcn = 'tansig';
-    %netz.trainFcn = 'trainlm'
+    netz.trainFcn = 'trainscg';
+%    netz.trainParam.showWindow ='true';
     netz.performFcn = 'crossentropy';
     netz.trainParam.max_fail = 10;
     netz.trainParam.epochs =1000;
@@ -29,8 +30,8 @@ u=neurons;
     netz=train(netz,in,ou);
     simou = netz(in);
     [con,~] = confusion(ou,simou);
-  
-    %plotconfusion(ou,simou);
+    
+
 
 disp('Training finish')  
   

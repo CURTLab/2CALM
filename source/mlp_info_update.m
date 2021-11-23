@@ -15,7 +15,7 @@ figure ( 'WindowStyle', 'normal', ...  %%%'normal'
                   'ToolBar' 	,'none', ...
                   'Position',[scrsz(3)/5 scrsz(4)/1.18 scrsz(4)/0.8 scrsz(4)/10.25]);
 whitebg(get(gcf,'color'));
-text(0.05,0.75,['Number of new training data = ',num2str(size(OUU,1)),' records (input vectors).'],'Fontsize',12,'Fontweight','bold')
+text(0.05,0.75,['Number of new training data = ',num2str(size(OUU,1)),' training 1D-vectors of input-features.'],'Fontsize',12,'Fontweight','bold')
 %text(0.05,0.35,exname1,'Fontsize',12,'Fontweight','bold')
 ax = gca;
 ax.XColor = get(gcf,'color');

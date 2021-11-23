@@ -3,7 +3,7 @@ close all
 clear
 %%%%%%%%%%%%%%%%%%%%%%%%% open file %%%%%%%%%%%%%%%%%%%%%%%%%%%
 try
-[pathname,dirname] = uigetfile('*.x*');
+[pathname,dirname] = uigetfile('..\*.x*');
 fullpath = fullfile(dirname,pathname);
 par= importdata(fullpath);  
 catch

@@ -13,7 +13,7 @@ S_size=rip_size;
 simriplK=result_Ri_aggreg_siml;
 simripK=result_Ri_aggreg_simm;
 
-
+try
  if A==1
       p_val_K_singel = rip_ks ;
       p_val_W_singel=rip_w;
@@ -27,6 +27,16 @@ simripK=result_Ri_aggreg_simm;
     rys_ripl_total;
  end
 
+ catch
+     close all
+     error_info;
+     A_start;
+   
+ end
+ 
+ 
+ 
+ 
 
 clear('mpw','tpw','lok','upk','simriplK','simripK','S_size','A')
 

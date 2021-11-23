@@ -13,7 +13,7 @@ end
 
 sigma_factor=3.0;
 poiss_factor=1.0;
-min_element=15;
+stop_random_noise;
 poiss_met=1;
 norm_pdf1=0;
 
@@ -164,12 +164,12 @@ UK=N;
 UK=UK-KL;
 
 if UK>0
-    stop_random_noise;
     urr=[];
     for kk=1:UK
        if noi==1
        urr(kk,:) = mddd+deltaddd.*rand(1,3);
        elseif noi==0
+      
        urr(kk,:) = mddd+deltaddd.*0;     
        end  
     end
@@ -224,7 +224,6 @@ msgbox('Fullpath is not correct. Please check the first sample name')
 clc
 A_start;
 end
-
 
 
 

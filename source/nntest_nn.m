@@ -1,7 +1,7 @@
 function [missc,net] = nntest_nn(VM,CL,NeuronNumber)
   
 if isempty(VM)==0
-    proc=0.10;
+    proc=0.1;
  
     
     u=NeuronNumber; %%%%%%%%%%%%%% neurons number 
@@ -17,7 +17,10 @@ if isempty(VM)==0
     rng('default')
     [net,~] = nprlearn(inr,our,u);
     [conf,~]= nprsim(net,int,out);
-    
+    tespred=net(int);
+    figure
+    plotconfusion(out,tespred);
+   title(['MLP network. \newline Confusion matrix. Hit = ',num2str((conf)*100),' %']) 
    missc=1-conf;
 else
     missc=1;

@@ -1,6 +1,6 @@
-options.Interpreter = 'tex';
+%options.Interpreter = 'tex';
 
-x = inputdlg({'\fontsize{12}Enter number of neurons.'},'MLP',[1,40],{'30'},options);
+x = inputdlg({'Enter number of neurons.'},'MLP',[1,40],{'30'});
 if isempty(x)==0
 NeuronNumber= str2double(x{1,1});
 clear('x')

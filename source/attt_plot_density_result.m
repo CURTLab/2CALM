@@ -18,10 +18,14 @@ lo_cur=bot_lo_cur;
 up_cur=bot_up_cur;
 sim_mpc=bot_sim_mpc;
 sim_lpc=bot_sim_lpc;
+
+try
+
 if A>1
 pvalM=bot_pvalM;
 cvalM=bot_cvalM;
 rys_bootstrap; 
+tt_meandensity_meanlarge;
 tt_rys_resam_detail_dens;
 tt_rys_resam_genr_dens;
 rys_bootstrap_total;
@@ -33,7 +37,15 @@ rys_bootstrap;
 tt_rys_resam_detail_dens;
 end
 
-
+catch
+     error_info;
+     close all
+     pause (0.1)
+     A_start;
+   
+     
+   
+ end
 
 
 clear('CI','CIc','CICU','CIM','CIMc','CIPR','dowait','Nmin','options','P','pcm1',...

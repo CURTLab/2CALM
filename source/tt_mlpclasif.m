@@ -37,4 +37,4 @@ disp('__________________________________________________________________________
 tt_bar_mlp_rys;
 
 
-%clear('prob','prob2','missc','ww','in','ou','INN','OUU','no_pair','testname','locall','button')
+%clear('prob','prob2','missc','ww','in','ou','INN','OUU','testname','locall','button')

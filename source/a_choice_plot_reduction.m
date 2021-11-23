@@ -23,10 +23,12 @@ switch button
     case '2D'
         
        plot_reduction;
+	  
        clear('button','options')
        quit cancel;
     case '3D'
        plot_reduktion_3d;
+	    plot_shape;
         clear('button','options') 
         quit cancel;
        
