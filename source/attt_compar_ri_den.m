@@ -29,18 +29,18 @@ hold on
 %plot(dis,pd,':k','linewidth',2)
 %plot(dis,lo_den,':m','linewidth',1)
 %plot(dis,up_den,':m','linewidth',1)
-
-plot(dis,PVMR,'-b','linewidth',2) %%%%%%%%%% full cross ripley
+nj=min(numel(dis),numel(PVMR));
+plot(dis(1:nj),PVMR(1:nj),'-b','linewidth',2) %%%%%%%%%% full cross ripley
 grid on
 
-text(100,0.9,['{\bf Similarity Density} \newline Sim_M = ',num2str(sim_mpd),'  \newline Sim_L = ',num2str(sim_lpd),...
-    '\newline Avg pvalue = ',num2str(mpd)])
+text(100,0.9,['{\bf Similarity Density} \newline Sim_M = ',num2str(simmg),'  \newline Sim_L = ',num2str(simlg),...
+    '\newline Avg pvalue = ',num2str(mpwg)])
 
 text(100,0.6,['{\bf Similarity Ripley} \newline Sim_M = ',num2str(simm_r),'  \newline Sim_L = ',num2str(siml_r), '\newline Avg pvalue = ',num2str(mean(PVMR))],'color','b')
 
 %plot(dis,avg_pm,'-k','linewidth',1) %%%%%%%%%% mean pvalue
 
-legend('critical p','density p-value','K-Ripley p-value')
+legend('critical p','density KS p-value','K-Ripley p-value')
 xlabel('cluster size in nm')
 ylabel('p value')
 ylim([0,1])
@@ -50,5 +50,5 @@ suptitle(['Comparison: Kolmogorow-Smirnow and K-Ripley statistic test for ',num2
            exname1,' and ',exname2])
        
 clear ('dis' , 'S_size','A','PVMR','simm_r','siml_r')
-clear('crm')
+clear('crm','nj')
 clear('avg_pm','avg_pmc')

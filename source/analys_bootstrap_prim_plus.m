@@ -1,7 +1,7 @@
 clc
 close all
 pause(0.01)
-locall=1;
+locall=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%% data test %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -77,20 +77,21 @@ pos2tem=[dato2(:,xi2),dato2(:,yi2),dato2(:,zi2)];
 
 rtest1=radius_test(pos1tem);
 rtest2=radius_test(pos2tem);
-rtest=min(rtest1,rtest2);
-
+rtest=(rtest1+rtest2)/2;
+rtest=round(rtest*0.50);
+answeRmax;
 clear('dist')
-if locall ==1
-    rmax=round(rtest*0.50);
+if locall == 1
+    rmax=rtest;
 else
     rmax=Rmax;
 end
 
-if rmax < 1000
-    rmax=1000;
+if rmax < 100
+    rmax=Rmax;
 end
 
-dist=10:10:rmax;
+dist=10:step_clustering:rmax;
 U=numel(dist);
 clear('rtest1', 'rtest2' ,'rtest' ,'dato1', 'dato2', 'pos1tem', 'pos2tem', 'Nm', 'NM')
 
@@ -139,8 +140,8 @@ betta=5;
       
   
     
-     [clbootprim1,cboot_primar1]=DBSCAN_neu(pos1,dist(i),alpha,4,3,M);
-     [clbootprim2,cboot_primar2]=DBSCAN_neu(pos2,dist(i),alpha,4,3,M);
+     [clbootprim1,cboot_primar1]=DBSCAN_fast(pos1,dist(i),alpha,4,3,M);
+     [clbootprim2,cboot_primar2]=DBSCAN_fast(pos2,dist(i),alpha,4,3,M);
   
      [~,densboot1,curpboot1,~,~,~]=feature_singl_neu_cl(clbootprim1,pos1,inten1,0);
      [~,densboot2,curpboot2,~,~,~]=feature_singl_neu_cl(clbootprim2,pos2,inten2,0);

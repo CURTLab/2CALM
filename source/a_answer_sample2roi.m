@@ -11,7 +11,9 @@ switch button
        A_start;
       end
       dat=dat1;
+      if exist('colhead1','var')==1
       colhead=colhead1;
+      end
       fullpath=fullpath1;
       exname=exname1;
       xi=xi1;
@@ -32,7 +34,9 @@ switch button
        A_start;
       end
       dat=dat2;
+       if exist('colhead2','var')==1
       colhead=colhead2;
+       end
       fullpath=fullpath2;
       exname=exname2;
       xi=xi2;

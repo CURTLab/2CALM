@@ -102,8 +102,12 @@ pause(0.00)
 plot3(dd00(:,1),dd00(:,2),dd00(:,3),'ok','markerfacecolor',[colr(i),col(i),0.1],...
     'markersize',2, 'markeredgecolor',[colr(i),col(i),0.1])
 hold on
- shp = alphaShape(dd00);
- plot(shp,'FaceAlpha',0.6)
+% shp = alphaShape(dd00);
+ %plot(shp,'FaceAlpha',0.6)
+[K] = convhull(dd00);
+trisurf(K,dd00(:,1),dd00(:,2),dd00(:,3),'FaceColor','g','facealpha',0.6)
+clear('K')
+
 
  title([num2str(uu),'/',num2str(umax), ' largest primary clusters. Cluster size ',num2str(radius), 'nm. \newlineSample: ',exname])
 

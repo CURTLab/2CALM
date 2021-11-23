@@ -2,15 +2,17 @@ clc
 close all
 clear
 %%%%%%%%%%%%%%%%%%%%%%%%% open file %%%%%%%%%%%%%%%%%%%%%%%%%%%
-[pathname,dirname] = uigetfile('*.mat');
+[pathname,dirname] = uigetfile('../*.mat');
 fullpath = fullfile(dirname,pathname);
 fullpath1=fullpath;
 dirname1=dirname;
+pathname1=pathname;
+
 load(fullpath);
 exname=pathname;
-
 exname = strrep(exname,'_','-');
 exname1 = strrep(exname,'.mat','');
+
 
 clear('fullpath','datacell','dirname',  'pathname')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

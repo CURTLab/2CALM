@@ -10,8 +10,9 @@ function  [cl,c_primar]=DBSCAN_neu(pos,avg_min_dist,alpha,NP,NPP,N)
 % 
 % alpha coefficient for neighborhood radius(=1)
 % NP number of neighbors (min 5)
-% NPP neifgbors number for neighbors (min 4)
+% NPP neigbors number for neighbors (min 4)
 % pos,  points in original order
+% N Number of points 
  
 %%%%%%%%%%%%%%%%%%%%%%% data init %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -21,7 +22,7 @@ function  [cl,c_primar]=DBSCAN_neu(pos,avg_min_dist,alpha,NP,NPP,N)
 %disp('Primary cluster generation. Please wait a few minutes')
 
 
-NRAD=alpha*avg_min_dist ;                       %%% minimal raius oh neighborhood
+NRAD=alpha*avg_min_dist ;                       %%% minimal raius of neighborhood
 cl(1:N,1)=0;                                    % cluster
 al(1:N,1)=0;                                    % analyse marker
 C=0;                                  
@@ -29,7 +30,7 @@ C=0;
 
 %%%%%%%%%%%%%%%%%%%% primary cluster finding %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- %kontr=3000;                                         % current cluster number
+ %kontr=round(0.1*N);                                    % current cluster number
  %jab=1;
  
 for i=1:N

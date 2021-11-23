@@ -2,7 +2,7 @@ options.Interpreter = 'tex';
 if exist('para_nr','var')==1
   de_pair_nr=num2str(para_nr);
 else
-   de_pair_nr=' ';
+  de_pair_nr=' ';
 end
 pause(0.05)
 x = inputdlg({'\fontsize{12}Enter pair number'},'PAIR',[1,80],{de_pair_nr},options);

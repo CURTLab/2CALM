@@ -1,7 +1,7 @@
 clc
 close all
 pause(0.01)
-locall=1;
+locall=0;
 %%%%%%%% data test 
 
 
@@ -85,20 +85,21 @@ end
 
 rtest1=radius_test(pos1tem);
 rtest2=radius_test(pos2tem);
-rtest=min(rtest1,rtest2);
-
+rtest=min(rtest1+rtest2)/2;
+rtest=round(rtest*0.50);
+answeRmax;
 clear('dist')
 if locall ==1
-    rmax=round(rtest*0.50);
+    rmax=rtest;
 else
     rmax=Rmax;
 end
 
-if rmax < 1000
-    rmax=1000;
+if rmax < 100
+    rmax=Rmax;
 end
 
-dist=5:10:rmax;
+dist=5:step_clustering:rmax;
 U=numel(dist);
 clear('rtest1','rtest2','rtest','dato1','dato2','pos1tem','pos2tem','Nm','NM')
 answer_time;
@@ -110,11 +111,18 @@ answer_time;
 clear('PR_Array1','PR_Array2')
 clear('CU_Array1','CU_Array2')
 clear('KD_Array','KC_Array','KDR_Array','KCR_Array','KCM_Array')
+clear('NZ_Array1','NZ_Array2')
+clear('PRS_Array1','PRS_Array2')
 
-PR_Array1(1:U,1:A)=0; % avg density
-PR_Array2(1:U,1:A)=0; % avg density
+
+PR_Array1(1:U,1:A)=0; % avg density lambda box
+PR_Array2(1:U,1:A)=0; % avg density lambda box
 CU_Array1(1:U,1:A)=0; % avg curvature
 CU_Array2(1:U,1:A)=0; % avg curvature
+NZ_Array1(1:U,1:A)=0; % avg number of points
+NZ_Array2(1:U,1:A)=0; % avg number of points
+%PRS_Array1(1:U,1:A)=0; % avg density lambda bullet
+%PRS_Array2(1:U,1:A)=0; % avg density lambda bullet
 
 KD_Array(1:U,1:A)=0; % pval KS density
 KDR_Array(1:U,1:A)=0; %pval WX density
@@ -147,17 +155,17 @@ for k=1:A
     [~,~,mu_1,st_1,midi1]=D3_sample_preparation_plus(pos1);
     [~,~,mu_2,st_2,midi2]=D3_sample_preparation_plus(pos2);
     end
-  mu_1=0.4*mu_1;
-  st_1=0.15*st_1;
-  mu_2=0.4*mu_2;
-  st_2=0.15*st_2;
+      mu_1=0.4*mu_1;
+      st_1=0.15*st_1;
+      mu_2=0.4*mu_2;
+      st_2=0.15*st_2;
  
    lambda_box1=M/((max(pos1(:,1))-min(pos1(:,1)))*(max(pos1(:,2))-min(pos1(:,2)))*(max(pos1(:,3))-min(pos1(:,3)))); 
    lambda_box2=M/((max(pos2(:,1))-min(pos2(:,1)))*(max(pos2(:,2))-min(pos2(:,2)))*(max(pos2(:,3))-min(pos2(:,3))));  
     
  
-   Z1=Z_calcul(pos1);
-   Z2=Z_calcul(pos2);
+       Z1=Z_calcul(pos1);
+       Z2=Z_calcul(pos2);
 
  
    for i=1:U
@@ -167,8 +175,9 @@ for k=1:A
      
    
     
-     [dens1,den_av1,cur1,cur_av1]=feature_dens_primitiv_plus(kt1,pos1,grose,mu_1,st_1,midi1);
-     [dens2,den_av2,cur2,cur_av2]=feature_dens_primitiv_plus(kt2,pos2,grose,mu_2,st_2,midi2);
+     [dens1,den_av1,cur1,cur_av1,nz1]=feature_dens_primitiv_plus_number(kt1,pos1,grose,mu_1,st_1,midi1);
+     [dens2,den_av2,cur2,cur_av2,nz2]=feature_dens_primitiv_plus_number(kt2,pos2,grose,mu_2,st_2,midi2);
+     
      
      [~,pks1,~]=kstest2(dens1/lambda_box1,dens2/lambda_box2);
      [~,pks2,~]=kstest2(dens1/sum(dens1),dens2/sum(dens2));
@@ -200,36 +209,43 @@ for k=1:A
      if isnan(pkcr)==1
          pkcr=1;
      end
- %%%%%%%%%%%%%%%% detail level   
+%%%%%%%%%%%%%%%% detail level
     KC_Array(i,k)=pkc;
     KD_Array(i,k)=pks; 
     KCR_Array(i,k)=pkcr;
     KDR_Array(i,k)=pksw;
     KCM_Array(i,k)=pcmm;
-  %%%%%%%%%%%%%%%%% general level
+%%%%%%%%%%%%%%%%% general level
   
     PR_Array1(i,k)=den_av1/lambda_box1;
     PR_Array2(i,k)=den_av2/lambda_box2;
     
-    %PR_Array1(i,k)=den_av1/sum(dens1);
-    %PR_Array2(i,k)=den_av2/sum(dens2);
+    %PRS_Array1(i,k)=den_av1/lambda1;
     
+    %PRS_Array2(i,k)=den_av2/lambda2;
+    
+        %PR_Array1(i,k)=den_av1/sum(dens1);
+        %PR_Array2(i,k)=den_av2/sum(dens2);
+    
+    NZ_Array1(i,k)=median(nz1)/M;
+    NZ_Array2(i,k)=median(nz2)/M;
     
     CU_Array1(i,k)=cur_av1;
     CU_Array2(i,k)=cur_av2;
-    
-  
+   
    end
+   
    if dowait==1
         try
              waitbar(k/A,wait_h);
         catch
              helpdlg('Calculations had been aborted','Waitbar message')
              clear('KD_Array','KDR_Array','PR_Array1','PR_Array2','CU_Array1','CU_Array2')
-             clear('KC_Array','KCR_Array')
+             clear('KC_Array','KCR_Array', 'NZ_Array1', 'NZ_Array2', 'PRS_Array1', 'PRS_Array2')
             return;
         end
-    end
+   end
+    
  toc
 end
 if dowait==1
@@ -239,9 +255,13 @@ end
 
 %%%%%%%%%%%%%%%%%%%% end data preparation   
 rys_bootstrap; 
+tt_meandensity_meanlarge;
 %%%%%%%%%%%%%%%%%%%%%%%% ks test %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 [pa,~,P]=averagepval(PR_Array1,PR_Array2);
 PP=mean(P')';                       %%%%%%  i-2-i ks  and wilcoxon
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 answer_alpha;
 
@@ -272,8 +292,8 @@ sup_kc=ci_kc(:,5);
 slo_kcr=ci_kcr(:,4);
 sup_kcr=ci_kcr(:,5);
 
-%%%%%%%%%% KS und Wilcoxon only 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% weight mean od ka  and wilcoxon
+%%%%%%%%%% KS und Wilcoxon only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% weight mean od ka and wilcoxon
 [pd,~,mpd] =  and_term(den_ks,den_wilcox,0.85);
 [pd_low,~,~] =and_term(slo_kd,slo_kdr,0.75);
 [pd_up,~,~] = and_term(sup_kd,sup_kdr,0.75);
@@ -294,15 +314,17 @@ sim_mpc=a_similarity_M(mpc,alp);
 
 tt_rys_resam_detail_dens;
 
-%result_density_level0_avg=mpd;
-%result_density_level0_simm=sim_mpd;
-%result_density_level0_siml=sim_lpd;
-%result_curv_level0_avg=mpc;
-%result_curv_level0_simm=sim_mpc;
-%result_curv_level0_siml=sim_lpc;
+    %result_density_level0_avg=mpd;
+    %result_density_level0_simm=sim_mpd;
+    %result_density_level0_siml=sim_lpd;
+    %result_curv_level0_avg=mpc;
+    %result_curv_level0_simm=sim_mpc;
+    %result_curv_level0_siml=sim_lpc;
 
 %%%%%%%%%%%%%%%%%%%%% Empirical p-value - general level
-%%%%%%%%%%%%%%% density p value
+%%%%%%%%%%%%%%%%%%%%% density p value
+
+
 if A>1
 dlm1=mean(PR_Array1');
 dlm2=mean(PR_Array2');
@@ -342,6 +364,7 @@ end
 else
 attt_save_dens_plot_singl;
 end
+
 %rys_save_final_2;
 
 
@@ -357,13 +380,14 @@ end
 
 
 
+clear('ff','xf','dens1','dens2','cr','d1','d2','c0',...
+    'dato1','dato2','den_av1','den_av2','Nm1','dlm1','dlm2','f','pos1','pos2','rmin1','rmin2','s','k','kt1','kt2','U',...
+    'scrsz','wait_h','Z1','Z2','i','av_size1','av_size2','E','km1','km2','lm1','lm2','rmax','p1')
+ 
+clear('ff','xf','dens1','dens2','cr','d1','d2','c0',...
+    'dato1','dato2','den_av1','den_av2','Nm1','dlm1','dlm2','f','pos1','pos2','rmin1','rmin2','s','k','kt1','kt2','U',...
+    'scrsz','wait_h','Z1','Z2','i','av_size1','av_size2','E','km1','km2','lm1','lm2','rmax','p1')
 
- clear('ff','xf','dens1','dens2','cr','d1','d2','c0',...
-'dato1','dato2','den_av1','den_av2','Nm1','dlm1','dlm2','f','pos1','pos2','rmin1','rmin2','s','k','kt1','kt2','U',...
-'scrsz','wait_h','Z1','Z2','i','av_size1','av_size2','E','km1','km2','lm1','lm2','rmax','p1')
- clear('ff','xf','dens1','dens2','cr','d1','d2','c0',...
-'dato1','dato2','den_av1','den_av2','Nm1','dlm1','dlm2','f','pos1','pos2','rmin1','rmin2','s','k','kt1','kt2','U',...
-'scrsz','wait_h','Z1','Z2','i','av_size1','av_size2','E','km1','km2','lm1','lm2','rmax','p1')
 clear('apwc','apwcr','apwd','apwd1','apwg','av_tot','c10','c11','c12','c13','c14','c15','c16')
 clear('ci_kc','ci_kcr','ci_kd','ci_kdr','ck','ckk','cr','crM','cu_m1','cu_m2','cur_av1','cur_av2')
 clear('cur1','cur2','curm1','curm2','cvalm','cvalM','dato1','dato2','cavg')
@@ -373,17 +397,18 @@ clear('ripl','slo_kc','slo_kcr','slo_kd','slo_kdr','st_1','st_2','t10','t11','t1
 
 
 clear('xx','avg_pm','avg_pmc','cor','crm', 'cur_ks','cur_wilcox','den_ks','den_wilcox','dis','ep','inf','kr',...
-'L','lambda_box1','lambda_box2','lo','lo_cur','lo_den','lo_s','mpc','mpd','mpwc','mpwcr','mpwd','mpwg','pa','pavg',...
-'pc','pc_low','pc_up','pd','pd_low','pd_up','pkc','pkcr','pks','pks1','pks2','pksw','pkw1','pkw2','pvalm','pvalM','pvalN','PVc','PV',...
-'PVM','PVMc','si','sim_lpc','sim_lpd','sim_mpc','sim_mpd','siml','simlcg','simlg','simlk','simlpg','simlv_pc',...
-'simlv_pd','simlvg', 'simmcg', 'simmg', 'simmpg',...
-'stc_ks', 'stc_wilcox', 'std_ks', 'std_wilcox', 'sup_kc', 'sup_kcr', 'sup_kd', 'sup_kdr',...
-'tpwc', 'tpwcr', 'tpwd', 'tpwd1', 'tpwg', 'tt', 'ttk', 'ttt', 'up', 'up_cur', 'up_den', 'up_s', 'warnun')
+    'L','lambda_box1','lambda_box2','lo','lo_cur','lo_den','lo_s','mpc','mpd','mpwc','mpwcr','mpwd','mpwg','pa','pavg',...
+    'pc','pc_low','pc_up','pd','pd_low','pd_up','pkc','pkcr','pks','pks1','pks2','pksw','pkw1','pkw2','pvalm','pvalM','pvalN','PVc','PV',...
+    'PVM','PVMc','si','sim_lpc','sim_lpd','sim_mpc','sim_mpd','siml','simlcg','simlg','simlk','simlpg','simlv_pc',...
+    'simlv_pd','simlvg', 'simmcg', 'simmg', 'simmpg',...
+    'stc_ks', 'stc_wilcox', 'std_ks', 'std_wilcox', 'sup_kc', 'sup_kcr', 'sup_kd', 'sup_kdr',...
+    'tpwc', 'tpwcr', 'tpwd', 'tpwd1', 'tpwg', 'tt', 'ttk', 'ttt', 'up', 'up_cur', 'up_den', 'up_s', 'warnun')
 
 clear('apwc', 'apwcr', 'apwd', 'apwd1', 'apwg', 'av_tot', 'avg_pm', 'avg_pmc', 'crm', 'crM', 'cur_ks', 'cur_wilcox', 'curm1', 'curm2')
 clear('cvalM','den_ks','den_wilcox','dis','dlm1','dlm2','ep','fig','i','lo','lo_cur','lo_den','lo_s','mpc','mpd','mpwc','mpwcr','mpwd',...
-    'mpwg','pa','pa','pd','PV','pvalM','','PVc','PVM','PVMc','sim_lpc','sim_lpd','sim_mpc','sim_mpd','simlcg','simlvg','simlg',...
-'simlpg','simmcg','simmg','simmpg','tpwc','tpwcr','tpwd','tpwd1','tpwg','up','up_cur','up_den','up_s','warnun')
+      'mpwg','pa','pa','pd','PV','pvalM','','PVc','PVM','PVMc','sim_lpc','sim_lpd','sim_mpc','sim_mpd','simlcg','simlvg','simlg',...
+      'simlpg','simmcg','simmg','simmpg','tpwc','tpwcr','tpwd','tpwd1','tpwg','up','up_cur','up_den','up_s','warnun')
+
 clear('CI','CIc','CICU','CIM','CIMc','CIPR','dowait','Nmin','options','P','pcm1',...
-      'pcm2','pcmm','PP', 'S_size')
+      'pcm2','pcmm','PP', 'S_size','nz1','nz2')
 

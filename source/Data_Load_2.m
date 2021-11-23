@@ -2,10 +2,12 @@ clc
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% open file %%%%%%%%%%%%%%%%%%%%%%%%%%%
-[pathname,dirname] = uigetfile('*.mat');
+[pathname,dirname] = uigetfile('../*.mat');
 fullpath = fullfile(dirname,pathname);
 fullpath2=fullpath;
 dirname2=dirname;
+pathname2=pathname;
+
 load(fullpath);
 exname=pathname;
 exname = strrep(exname,'_','-');

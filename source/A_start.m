@@ -1,6 +1,6 @@
 
 
-%CALM Version 2.1  (2-sample Comparative Analysis of 3D Localisation Microscopy data) 
+%CALM Version 4.2  (2-sample Comparative Analysis of 3D Localisation Microscopy data) 
 %is an analysis pipeline, which organizes localisation microscopy data into 
 %clusters of different dimensions and calculated the samples’ statistical parameters
 %using various numerical methods.
@@ -45,7 +45,7 @@
 % This code may be freely used and distributed, so long as it maintains this copyright line
 
 
-clc
+
 try
     close(hh)
     clear('hh')
@@ -58,13 +58,13 @@ A_menu;
 A_control
 clear('task')
 A_start;
-            %catch
-                %clc
-                %disp('The program was aborted by the user')
-                %pause(0.01)
-                %user_stops;
+           %catch
+             %clc
+             % disp('The program was aborted by the user')
+            %  pause(0.01)
+             % user_stops;
 
-            %end
+         %  end
 
 
 

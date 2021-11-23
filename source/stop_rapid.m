@@ -7,6 +7,8 @@ switch button
     case 'RAPID'
         status=3;
         answer_rapid;
+      
+        
         clc
         clear('button')
  if nmin==N1

@@ -6,7 +6,7 @@ GRT=[];
 VRR=[];
 GRR=[];
 if proc == 0
-    proc=0.5;
+    proc=0.25;
 end
 
 if proc >=1.0

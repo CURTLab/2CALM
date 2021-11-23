@@ -19,9 +19,15 @@ sim_mpc=bootprim_sim_mpc;
 sim_lpc=bootprim_sim_lpc;
 
 
+try
 tt_rys_resam_detail_dens_prim;
 
-
+ catch
+     error_info;
+     close all
+     pause (0.1)
+     A_start;
+end
 
 clear('CI','CIc','CICU','CIM','CIMc','CIPR','dowait','Nmin','options','P','pcm1',...
       'pcm2','pcmm','PP', 'S_size','si','scrsz','pc','mpwd1')
