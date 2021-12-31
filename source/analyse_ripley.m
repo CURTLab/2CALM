@@ -1,11 +1,6 @@
 clc
 
-%%%%%%%%%%%%%%%%%%%%%%%%%% type of Ripley methode 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%   Rsharf = 1  relative to lambda demsity
-%%%%%%%%%%%%%%%%%%%%%%%%      Rsharf = 0 relative  to number of points %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-Rsharf=0;
+%%%%%%%%%%%%%%%%%%%%%%%%%% data test %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%% data test 
 
@@ -24,7 +19,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rng('default');
-locall=0;
+locall=1;
 
 NM = max(N1,N2);
 Nm = min(N1,N2);
@@ -51,20 +46,19 @@ pos2tem=[dato2(:,xi2),dato2(:,yi2),dato2(:,zi2)];
 
 rtest1=radius_test(pos1tem);
 rtest2=radius_test(pos2tem);
-rtest=(rtest1+rtest2)/2;
-rtest=round(rtest*0.5);
-answeRmax;
+rtest=min(rtest1,rtest2);
 if locall ==1
-    rmax=min(1500,rtest);
+    rmax=round(rtest*0.5);
+    rmax=min(1500,rmax);
 else
     rmax=Rmax;
 end
-if rmax < 100
-   rmax=Rmax;
+if rmax < 1000
+   rmax=1000;
 end
  
 
-dist=5:step_clustering:rmax;
+dist=5:10:rmax;
 clear('rtest1','rtest2','rtest','dato1','dato2','pos1tem','pos2tem','Nm','NM')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear('K_Array1','L1_Array1')
@@ -84,7 +78,7 @@ if dowait==1
 wait_h = waitbar(0, 'Sampling and Ripley 3D calculation...');
 end
 for i=1:A
-tic
+
 if dowait==1
         try
              waitbar(i/A,wait_h);
@@ -104,47 +98,22 @@ pos1=[dato1(:,xi1),dato1(:,yi1),dato1(:,zi1)];
 pos2=[dato2(:,xi2),dato2(:,yi2),dato2(:,zi2)];
 [d2,rmin_avg2,box_ripl2]=dist_min(pos2);
 
-[~,v] = convhulln(pos1);   
-lambda1 = M/v;
-%lambda1 = M/((box_ripl1(2)-box_ripl1(1))*(box_ripl1(4)-box_ripl1(3))*(box_ripl1(6)-box_ripl1(5)));
-[~,v] = convhulln(pos2);   
-lambda2 = M/v;
-%lambda2 = M/((box_ripl2(2)-box_ripl2(1))*(box_ripl2(4)-box_ripl2(3))*(box_ripl2(6)-box_ripl2(5)));
-
-
-
 K1 = RipleysK3D(pos1,d1,dist,box_ripl1,2);
 K2 = RipleysK3D(pos2,d2,dist,box_ripl2,2);
-
-if Rsharf==1
-K1=K1/lambda1;
-K2=K2/lambda2;
-end
-
-K_Array1(:,i)=K1;
-K_Array2(:,i)=K2;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%modification K and H %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-if Rsharf==0
-K1=K1/lambda1;
-K2=K2/lambda2;
-end
-
 %%%%%%%%%%%%%%%%%%%%%%% H function %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 L11=nthroot((3*K1)/(4*pi),3)-dist';
 L12=nthroot((3*K2)/(4*pi),3)-dist';
-
-
 % L11=K1-E';
 % L12=K2-E';
 
+K_Array1(:,i)=K1;
 L1_Array1(:,i)=L11;
+
+K_Array2(:,i)=K2;
 L1_Array2(:,i)=L12;
 
 disp(['sample ',num2str(i),'/',num2str(A)])
-toc 
+
 end
 if dowait==1
  close(wait_h)

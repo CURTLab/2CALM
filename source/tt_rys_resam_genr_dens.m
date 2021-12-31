@@ -1,9 +1,9 @@
 scrsz = get(0,'ScreenSize');
-answer_cross;
+%answer_cross;
 dis=dist;
 M=S_size;
-[PV,CI,PVM,CIM,simmpg,simlpg]=a_cross_comparison(PR_Array1,PR_Array2,10,dist,alp);
-[PVc,CIc,PVMc,CIMc,simmcg,simlcg]=a_cross_comparison(CU_Array1,CU_Array2,10,dist,alp);
+[PV,CI,PVM,CIM,simmpg,simlpg]=a_cross_comparison(PR_Array1,PR_Array2,5,dist,alp);
+[PVc,CIc,PVMc,CIMc,simmcg,simlcg]=a_cross_comparison(CU_Array1,CU_Array2,5,dist,alp);
 %result_density_level1_avg=mean(PVM);
 %result_density_level1_simm=simmpg;
 %result_density_level1_siml=simlpg;
@@ -26,7 +26,7 @@ area(dis,crm,'facecolor',[1,0.6,0],'linestyle','-')
 hold on
 grid on
 
-plot(dis,PVM,'-b','linewidth',1) %%%%%%%%%% mean cross
+plot(dis,PVM,'-b','linewidth',2) %%%%%%%%%% mean cross
 hold on
 %plot(dis,PV,'-r','linewidth',1) %%%%%%%%%% full cross
 plot(dis,CIM(:,1),':b','linewidth',1) %%%%%%%%%% lo CI vector
@@ -49,11 +49,11 @@ whitebg('w')
 area(dis,crm,'facecolor',[1,0.6,0],'linestyle','-')
 hold on
 grid on
-plot(dis,PVMc,'-b','linewidth',1) %%%%%%%%%%KS full vector
+plot(dis,PVMc,'-b','linewidth',2) %%%%%%%%%%KS full vector
 hold on
 %plot(dis,PVc,'r','linewidth',1) %%%%%%%%%%Wilcoxon full voll vector
-plot(dis,CIMc(:,1),':b','linewidth',1) %%%%%%%%%% lo CI vector
-plot(dis,CIMc(:,2),':b','linewidth',1) %%%%%%%%%% up CI vector
+plot(dis,CIMc(:,1),':r','linewidth',1) %%%%%%%%%% lo CI vector
+plot(dis,CIMc(:,2),':r','linewidth',1) %%%%%%%%%% up CI vector
 plot(dis,avg_pmc,'-k','linewidth',1)
 text(100,0.9,['{\bf Similarity} \newline Sim_M = ',num2str(simmcg),'  \newline Sim_L = ',num2str(simlcg), '\newline Avg pvalue = ',num2str(mean(PVMc))])
 legend('critical p','mean-cross comparison','LO CI bounds','UP CI bounds','mean p-value')

@@ -1,10 +1,9 @@
 
 
-nmin=min(N1,N2);
-if nmin<200
+Nmin=min(N1,N2);
+if Nmin<200
     clc
-    disp('Too small sample size. Select other sample');
-    answer_too_small_region;
-    
+    disp('Too small sample size (<200). Error');
+    clear('nmin')
+    stop_calculation
 end
-clear('nmin')

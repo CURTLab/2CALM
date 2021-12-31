@@ -12,7 +12,7 @@ zmax=max(pos(:,3));
 box_ripl=[xmin,xmax,ymin,ymax,zmin,zmax];
 d(1:N,4)=0;
 %tic
-if N<6000
+if N<8000
     a=pdist2(pos,pos);
     a=sort(a);
     d(:,1)=a(2,:)';
@@ -32,6 +32,6 @@ else
     clear('a')
 end
 %disp('Min distance calculation')
-%toc
+
 dmin_avg=mean(mean(d(:,1)));
 end

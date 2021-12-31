@@ -35,7 +35,7 @@ plot(dis,pd,':k','linewidth',2)
 plot(dis,lo_den,':m','linewidth',1)
 plot(dis,up_den,':m','linewidth',1)
 
-text(100,0.9,['{\bf Similarity} \newline Sim_M = ',num2str(sim_mpd),'  \newline Sim_L = ',num2str(sim_lpd),...
+text(100,0.9,['Similarity \newline Sim_M = ',num2str(sim_mpd),'  \newline Sim_L = ',num2str(sim_lpd),...
     '\newline Avg pvalue = ',num2str(mpd)])
 plot(dis,avg_pm,'-k','linewidth',1) %%%%%%%%%% mean pvalue
 

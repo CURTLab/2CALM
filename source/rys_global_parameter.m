@@ -1,0 +1,5 @@
+
+rys_volumen;
+rys_diameter
+rys_lambda
+rys_curvature

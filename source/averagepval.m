@@ -8,7 +8,7 @@ A=size(Array1,2);
 
 R(1:A,1:A)=0;
 RE(1:A)=0;
-P(1:n,2)=0;
+P(1:n,1:2)=0;
 
 for i=1:n
  [~,p,~ ]=kstest2(Array1(i,:),Array2(i,:));
@@ -27,7 +27,8 @@ end
 
 for i=1:A
     for k=1:A
-    [~,pp,~]=kstest2(Array1(:,i),Array2(:,k)) ; 
+   % [~,pp,~]=kstest2(Array1(:,i),Array2(:,k)) ; 
+    [pp,~,~ ]=ranksum(Array1(:,i),Array2(:,k));
     if isnan(pp)==1
      pp=1;
     end

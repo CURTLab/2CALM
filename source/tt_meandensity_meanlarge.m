@@ -5,7 +5,7 @@
 if exist('PR_Array1','var')==1
     mden1=mean(PR_Array1,2);
     mden2=mean(PR_Array2,2);
-
+   [~, p_v_meandensity,~]=kstest2(mden1,mden2)
 
 
 scrsz = get(0,'ScreenSize');
@@ -21,7 +21,7 @@ xlabel('cluster max dimension in nm')
 ylabel(' average of the relative density of clusters')
 %ylim([0,1])
 xlim([0,max(dist)])
-title (['Average of relative cluster-density\newline S1:'  ,exname1,' \newline S2:',exname2])
+title (['Average of relative cluster-density KS-test =',num2str(p_v_meandensity),'\newline S1:'  ,exname1,'  S2:',exname2])
 
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

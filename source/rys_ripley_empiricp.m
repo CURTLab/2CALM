@@ -4,7 +4,9 @@ cr(1:numel(dist))=alp;
 
  scrsz = get(0,'ScreenSize');
  figure ('OuterPosition', [scrsz(3)/5 scrsz(4)/10 scrsz(4)/0.8 scrsz(4)/1.25]) ;
+ whitebg('w')
  area(dist,cr,'facecolor',[1,0.6,0],'linestyle','-')
+ whitebg('w')
  hold on
  plot(dist,tpw,'-k','linewidth',1.5)
  hold on
@@ -28,7 +30,7 @@ cr(1:numel(dist))=alp;
  suptitle(['Ripley statistic for ',num2str(A),' samples with ',num2str(M),' points \newline',...
      exname1,' and ',exname2])
  
- 
+
  
 clear('av_tot','avg_pm', 'avg_pmc','CI','CIMR', 'CIMRc', 'CIripK' ,'crm', 'dis', 'lm1', 'lm2', 'Nmin',...
 'options', 'PP', 'PVMR' ,'PVMRc', 'PVR', 'PVRc',...

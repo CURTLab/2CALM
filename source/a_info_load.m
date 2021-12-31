@@ -1,4 +1,3 @@
-hh1=msgbox('One of the samples does not exist. Please load data ','INFO','modal');
-msgboxFontSize(hh1,12);
+msgbox('One of the samples does not exist. Error in data loading  ','INFO','modal');
 pause(0.5)
-clear('hh1','ans','button','options')
+stop_ripley_bootstrap;

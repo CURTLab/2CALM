@@ -23,25 +23,25 @@ TEM4(1:L,1:test_no)=0;
 mu1=mean(AR1');
 [pmu1,~,~]=pval(mu1,AR2',dist,1e+4);
 pmu1=pmu1';
-%pmk1=pvalKS(mu1',AR2);
-%if isnan(pmk1)==1
-%    pmk1=0;
-%end
+pmk1=pvalKS(mu1',AR2);
+if isnan(pmk1)==1
+    pmk1=0;
+end
 
 
 mu2=mean(AR2');
 [pmu2,~,~]=pval(mu2,AR1',dist,1e+4);
 pmu2=pmu2';
-%pmk2=pvalKS(mu2',AR1);
-%if isnan(pmk2)==1
-%   pmk2=0;
-%end
+pmk2=pvalKS(mu2',AR1);
+if isnan(pmk2)==1
+   pmk2=0;
+end
 
  
-pmu=median([pmu1,pmu2]')';
-%pmk=mean([pmk1,pmk2]')';
+pmu=mean([pmu1,pmu2]')';
+pmk=mean([pmk1,pmk2]')';
 
-[pm,~,mpmm]= and_term(pmu,pmu,0.5);  %%%%%%%%%%%%%%%% mean2all
+[pm,~,mpmm]= and_term(pmu,pmk,1);  %%%%%%%%%%%%%%%% mean2all
 
 
 %%%%%%%%%%%%%%%%%%% cross comparison %%%%%%%%%%%%%%%%%%%%%%
@@ -60,7 +60,9 @@ for i= 1:test_no
    pva2_t=pvalKS(AR2(:,rr),AR1);
    TEM4(:,i)=pva2_t';
 end
- w=0.9;
+ w=0.5; 
+ %%%%%% Weight Array1 vs Array2 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
  UU1=w*TEM1+(1-w)*TEM2;
 [CINZ,~]=CI_calcul_rapid(UU1,alf,1);
 

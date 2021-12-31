@@ -1,10 +1,10 @@
 scrsz = get(0,'ScreenSize');
 dis=dist;
 M=S_size;
-answer_cross;
+%answer_cross;
 tic
-[PVR,CI,PVMR,CIMR,simm_r,siml_r]=a_cross_comparison(K_Array1,K_Array2,10,dist,alp);
-[PVRc,CI,PVMRc,CIMRc,simmc_r,simlc_r]=a_cross_comparison(L1_Array1,L1_Array2,10,dist,alp);
+[PVR,CI,PVMR,CIMR,simm_r,siml_r]=a_cross_comparison(K_Array1,K_Array2,5,dist,alp);
+[PVRc,CI,PVMRc,CIMRc,simmc_r,simlc_r]=a_cross_comparison(L1_Array1,L1_Array2,3,dist,alp);
 rip_PVMR=PVMR;  
 rip_simm_r=simm_r;
 rip_siml_r=siml_r;
@@ -35,7 +35,7 @@ area(dis,crm,'facecolor',[1,0.6,0],'linestyle','-')
 hold on
 grid on
 
-plot(dis,PVMR,'-b','linewidth',1) %%%%%%%%%% mean cross
+plot(dis,PVMR,'-b','linewidth',2) %%%%%%%%%% mean cross
 hold on
 plot(dis,PVR,'-r','linewidth',1) %%%%%%%%%% full cross
 plot(dis,CIMR(:,1),':b','linewidth',1) %%%%%%%%%% lo CI vector

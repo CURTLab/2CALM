@@ -1,17 +1,11 @@
-clc
+
 close all
-pause(0.01)
-locall=0;
 %%%%%%%% data test 
-
-
 if exist('dat1','var')==0  || exist('dat2','var')==0
     a_info_load;
-    A_start;
 else
     if isempty(dat1)==1 || isempty(dat2)==1
         a_info_load;
-        A_start;
     end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -22,31 +16,21 @@ mu_2=0;
 st_2=0;
 A_warnung_small_sample;
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rng('default');
-if exist('TEST_R','var')==0
-TEST_R=[0.0,0.0,0,0.05,0.05,250,150];
-end
 clear('hhh')
 
 
-NM = max(N1,N2);
-Nm = min(N1,N2);
-Nmin=Nm;
-
-
-
-
-
-answer1;
+%NM = max(N1,N2);
+%Nm = min(N1,N2);
+%Nmin=Nm;
+%answer1;
 
 
 if Nm <= 200
       A_warnung_small_sample; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 elseif Nm <= 1000
-      M=round(0.8*Nm);
+      M=round(0.9*Nm);
 elseif Nm <= 3000
       M=min(S_size,Nm);
 elseif Nm > 3000 && Nm < 100000
@@ -54,24 +38,25 @@ elseif Nm > 3000 && Nm < 100000
 else
       M=S_size;
 end
+
+disp(['Size of resample ',num2str(M),' points'])
+
 %%%%%%%%%%%%%%%%%%%%%%%%factor for min dist calculation%%%%%%%%%%%%%%%%
 
 if M<20000
     grose=0;
-    disp('density calculation-bullet sum')
+    disp('Density calculation-bullet sum')
     else
     grose=1;
-    disp('density calculation-mixed')
+    disp('Density calculation-mixed')
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+if grose==1
 dato1 = data_reduction(dat1,M,N1);
 dato2 = data_reduction(dat2,M,N2);
 pos1tem=[dato1(:,xi1),dato1(:,yi1),dato1(:,zi1)];
 pos2tem=[dato2(:,xi2),dato2(:,yi2),dato2(:,zi2)];
-
-if grose==1
 [VS1,la1,adist1,stddist1,midi1]=D3_sample_preparation_plus(pos1tem);
 [VS2,la2,adist2,stddist2,midi2]=D3_sample_preparation_plus(pos2tem);
 mu_1=0.5*adist1;
@@ -82,31 +67,33 @@ end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% max radius of clusters %%%%%%%%%%%%%%%%%%%%%%%%
-
+pos1tem=[dat1(:,xi1),dat1(:,yi1),dat1(:,zi1)];
+pos2tem=[dat2(:,xi2),dat2(:,yi2),dat2(:,zi2)];
 rtest1=radius_test(pos1tem);
 rtest2=radius_test(pos2tem);
-rtest=min(rtest1+rtest2)/2;
-rtest=round(rtest*0.50);
-answeRmax;
+rtest=min(rtest1,rtest2);
+rtest=0.333333*rtest;
+rtest=round(rtest);
+disp(['Sample1 dimension ',num2str(rtest1),'; Sample2 dimension ',num2str(rtest2),' nm'])
+disp([ 'Recommended max clustering-radius ',num2str(rtest),' nm'])
+clear('rtest1','rtest2','rtest','dato1','dato2','pos1tem','pos2tem')
+
+
+
+
+
+
+rmax=Rmax;
+disp(['Radius given ',num2str(Rmax),' nm'])
+
 clear('dist')
-if locall ==1
-    rmax=rtest;
-else
-    rmax=Rmax;
-end
-
-if rmax < 100
-    rmax=Rmax;
-end
-
 dist=5:step_clustering:rmax;
 U=numel(dist);
-clear('rtest1','rtest2','rtest','dato1','dato2','pos1tem','pos2tem','Nm','NM')
-answer_time;
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%start%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% start %%%%%%%%%%%%
      
 clear('PR_Array1','PR_Array2')
 clear('CU_Array1','CU_Array2')
@@ -121,8 +108,8 @@ CU_Array1(1:U,1:A)=0; % avg curvature
 CU_Array2(1:U,1:A)=0; % avg curvature
 NZ_Array1(1:U,1:A)=0; % avg number of points
 NZ_Array2(1:U,1:A)=0; % avg number of points
-%PRS_Array1(1:U,1:A)=0; % avg density lambda bullet
-%PRS_Array2(1:U,1:A)=0; % avg density lambda bullet
+PRS_Array1(1:U,1:A)=0; % avg density lambda bullet
+PRS_Array2(1:U,1:A)=0; % avg density lambda bullet
 
 KD_Array(1:U,1:A)=0; % pval KS density
 KDR_Array(1:U,1:A)=0; %pval WX density
@@ -135,11 +122,14 @@ dowait=1;
 if dowait==1
 wait_h = waitbar(0, 'Resampling and density features calculation...');
 end
+disp('--------------------------------------------------------------')
+disp(['Comparing pair: ',para])
+disp('Processing time of one pair  ~70 second')
 
 for k=1:A
    
-   display(['sample ',num2str(k),'/',num2str(A)])
-   tic
+   %display(['sample ',num2str(k),'/',num2str(A)])
+   
    clear('dato1','dato2')
    dato1 = data_reduction(dat1,M,N1);
    dato2 = data_reduction(dat2,M,N2);
@@ -194,7 +184,7 @@ for k=1:A
       pcmm=1-pcmm;
       
       [~,pkc,~]=kstest2(cur1,cur2);
-         pkcr=ranksum(cur1,cur2); 
+           pkcr=ranksum(cur1,cur2); 
      
      if isnan(pks)==1
          pks=0;
@@ -220,12 +210,11 @@ for k=1:A
     PR_Array1(i,k)=den_av1/lambda_box1;
     PR_Array2(i,k)=den_av2/lambda_box2;
     
-    %PRS_Array1(i,k)=den_av1/lambda1;
+    PRS_Array1(i,k)=den_av1/sum(dens1); %lambda1;
+    PRS_Array2(i,k)=den_av2/sum(dens2); %lambda2;
     
-    %PRS_Array2(i,k)=den_av2/lambda2;
-    
-        %PR_Array1(i,k)=den_av1/sum(dens1);
-        %PR_Array2(i,k)=den_av2/sum(dens2);
+        %PR_Array1(i,k)=den_av1/;
+        %PR_Array2(i,k)=den_av2/;
     
     NZ_Array1(i,k)=median(nz1)/M;
     NZ_Array2(i,k)=median(nz2)/M;
@@ -246,31 +235,42 @@ for k=1:A
         end
    end
     
- toc
+ 
 end
+
+
 if dowait==1
  close(wait_h)
  clear('wait_h')
 end
 
+
 %%%%%%%%%%%%%%%%%%%% end data preparation   
-rys_bootstrap; 
-tt_meandensity_meanlarge;
+%rys_bootstrap; 
+%tt_meandensity_meanlarge;
 %%%%%%%%%%%%%%%%%%%%%%%% ks test %%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 [pa,~,P]=averagepval(PR_Array1,PR_Array2);
-PP=mean(P')';                       %%%%%%  i-2-i ks  and wilcoxon
+ PP=mean(P')';                       %%%%%%  i-2-i ks  and wilcoxon
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-answer_alpha;
+%answer_alpha;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%% begin analyse detail level
 den_ks=mean(KD_Array,2);
+all_ks_dens(:,gindex)=den_ks;  
+
 den_wilcox=mean(KDR_Array,2);
-cur_wilcox=mean(KCR_Array,2);
+all_wilcox_dens(:,gindex)=den_wilcox;
+
 cur_ks=mean(KC_Array,2);
+all_ks_curv(:,gindex)=cur_ks;
+
+cur_wilcox=mean(KCR_Array,2);
+all_wilcox_curv(:,gindex)=cur_wilcox;
+
 
 std_ks=std(KD_Array')';
 std_wilcox=std(KDR_Array')';
@@ -293,12 +293,14 @@ slo_kcr=ci_kcr(:,4);
 sup_kcr=ci_kcr(:,5);
 
 %%%%%%%%%% KS und Wilcoxon only %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% weight mean od ka and wilcoxon
-[pd,~,mpd] =  and_term(den_ks,den_wilcox,0.85);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% weight mean od ks and wilcoxon  %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%% level first %%%%%%%%%%%%%%%%%%%%%%%%%% 85 % KS 15 % Wilcoxon
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+[pd,~,mpd] =  and_term(den_ks,den_wilcox,weight_density);
 [pd_low,~,~] =and_term(slo_kd,slo_kdr,0.75);
 [pd_up,~,~] = and_term(sup_kd,sup_kdr,0.75);
 
-[pc,~,mpc] =   and_term(cur_ks,cur_wilcox,0.8);
+[pc,~,mpc] =   and_term(cur_ks,cur_wilcox,weight_curvature);
 [pc_low,~,~] = and_term(slo_kc,slo_kcr,0.7);
 [pc_up,~,~] =  and_term(sup_kc,sup_kcr,0.7);
 
@@ -312,7 +314,7 @@ sim_mpc=a_similarity_M(mpc,alp);
 [sim_lpd,simlv_pd] = a_similarity_L(lo_den,up_den,pd,alp);
 [sim_lpc,simlv_pc] = a_similarity_L(lo_cur,up_cur,pc,alp);
 
-tt_rys_resam_detail_dens;
+%tt_rys_resam_detail_dens;
 
     %result_density_level0_avg=mpd;
     %result_density_level0_simm=sim_mpd;
@@ -328,6 +330,12 @@ tt_rys_resam_detail_dens;
 if A>1
 dlm1=mean(PR_Array1');
 dlm2=mean(PR_Array2');
+
+all_ave_dens1(:,gindex)=dlm1';
+all_ave_dens2(:,gindex)=dlm2';
+
+
+
 [pval1,~,~]=pval(dlm1,PR_Array2',dist,2e+3);
 [pval2,~,~]=pval(dlm2,PR_Array1',dist,2e+3);
 pval1ks=pvalKS(dlm1,PR_Array2);
@@ -337,12 +345,19 @@ pvalm=[pval1',pval2']';
 pvalM=mean(pvalm);
 pavg=mean(pvalM);
 
-pvalmks=[pval1ks',pval2ks']';
+pvalmks=[pval1ks,pval2ks]';
 pvalN=mean(pvalmks);
 
+all_ave_dens_ks(:,gindex)=pvalM';
+
 %%%%%%%%%%%%%%%%%%%%% curvature 
+
+
 cu_m1=mean(CU_Array1,2);
 cu_m2=mean(CU_Array2,2);
+all_ave_curv1(:,gindex)=cu_m1;
+all_ave_curv2(:,gindex)=cu_m2;
+
 
 [pvalc1,~,~]=pval(cu_m1',CU_Array2',dist,2e+3);
 [pvalc2,~,~]=pval(cu_m2',CU_Array1',dist,2e+3);
@@ -351,11 +366,14 @@ cvalm=[pvalc1',pvalc2']';
 cvalM=mean(cvalm);
 cavg=mean(cvalM);
 
-cor=correlation_coef(PR_Array1,PR_Array2);
+all_ave_curv_ks(:,gindex)=cvalM';
+
+%cor=correlation_coef(PR_Array1,PR_Array2);
 
 attt_save_dens_plot;
 
-tt_rys_resam_genr_dens;
+%tt_rys_resam_genr_dens;
+rys=0;
 rys_bootstrap_total;
 
 if exist('rip_PVMR','var')==1
@@ -364,8 +382,14 @@ end
 else
 attt_save_dens_plot_singl;
 end
-
-%rys_save_final_2;
+%%%%%%%%%%%%%%%%%%%%%%%%%tables%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+ Sim_boot1_M(iw,kw)=sim_mpd;
+ Sim_boot1_L(iw,kw)=sim_lpd;
+ Sim_boot1_AVP(iw,kw)=mpd;
+ 
+ Sim_boot_M(iw,kw)=simmg;
+ Sim_boot_L(iw,kw)=simlg;
+ Sim_boot_AVP(iw,kw)=mpwg;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -374,9 +398,8 @@ end
      clear('hh1')
  catch
      clear('hh1')
-     clc
+     %clc
  end
-
 
 
 
@@ -398,7 +421,7 @@ clear('ripl','slo_kc','slo_kcr','slo_kd','slo_kdr','st_1','st_2','t10','t11','t1
 
 clear('xx','avg_pm','avg_pmc','cor','crm', 'cur_ks','cur_wilcox','den_ks','den_wilcox','dis','ep','inf','kr',...
     'L','lambda_box1','lambda_box2','lo','lo_cur','lo_den','lo_s','mpc','mpd','mpwc','mpwcr','mpwd','mpwg','pa','pavg',...
-    'pc','pc_low','pc_up','pd','pd_low','pd_up','pkc','pkcr','pks','pks1','pks2','pksw','pkw1','pkw2','pvalm','pvalM','pvalN','PVc','PV',...
+    'pc','pc_low','pc_up','pd_low','pd_up','pkc','pkcr','pks','pks1','pks2','pksw','pkw1','pkw2','pvalm','pvalM','pvalN','PVc','PV',...
     'PVM','PVMc','si','sim_lpc','sim_lpd','sim_mpc','sim_mpd','siml','simlcg','simlg','simlk','simlpg','simlv_pc',...
     'simlv_pd','simlvg', 'simmcg', 'simmg', 'simmpg',...
     'stc_ks', 'stc_wilcox', 'std_ks', 'std_wilcox', 'sup_kc', 'sup_kcr', 'sup_kd', 'sup_kdr',...
@@ -410,5 +433,11 @@ clear('cvalM','den_ks','den_wilcox','dis','dlm1','dlm2','ep','fig','i','lo','lo_
       'simlpg','simmcg','simmg','simmpg','tpwc','tpwcr','tpwd','tpwd1','tpwg','up','up_cur','up_den','up_s','warnun')
 
 clear('CI','CIc','CICU','CIM','CIMc','CIPR','dowait','Nmin','options','P','pcm1',...
-      'pcm2','pcmm','PP', 'S_size','nz1','nz2')
+      'pcm2','pcmm','PP','nz1','nz2')
 
+clear('CI','CIc','CICU','CIM','CIMc','CIPR','dowait','Nmin','options','P','pcm1',...
+      'pcm2','pcmm','PP', 'si','scrsz','pc','mpwd1')
+clear('apwc', 'apwcr', 'apwd', 'apwd1', 'apwg', 'av_tot', 'avg_pm', 'avg_pmc', 'crm', 'crM', 'cur_ks', 'cur_wilcox', 'curm1', 'curm2')
+clear('cvalM','den_ks','den_wilcox','dis','dlm1','dlm2','ep','fig','i','lo','lo_cur','lo_den','lo_s','mpc','mpd','mpwc','mpwcr','mpwd',...
+    'mpwg','pa','pa','pd','PV','pvalM','','PVc','PVM','PVMc','sim_lpc','sim_lpd','sim_mpc','sim_mpd','simlcg','simlvg','simlg',...
+    'simlpg','simmcg','simmg','simmpg','tpwc','tpwcr','tpwd','tpwd1','tpwg','up','up_cur','up_den','up_s','warnun')

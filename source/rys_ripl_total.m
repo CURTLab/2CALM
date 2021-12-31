@@ -45,7 +45,7 @@ result_Ri_aggreg_simm=simripK;
 result_Ri_aggreg_siml=simriplK;
  
  
- 
+
  clear('ff','xf','K1','K2','L11','L12','box_ripl1','box_ripl2',...
 'dato1','dato2','h','i','Nm1','p','pos1','pos2','rmin1','rmin2','s',...
 'scrsz','wait_h','c0','cr','d1','d2','E','km1','km2','rmax')

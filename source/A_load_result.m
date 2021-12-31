@@ -2,23 +2,13 @@ close all
 clear
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 try
-[pathname,dirname] = uigetfile('..\Res-*.mat');
+[pathname,dirname] = uigetfile('Res*.mat');
 fullpath = fullfile(dirname,pathname);
 drname=dirname;
 load(fullpath);
-
-testname=pathname;
-
-dirname1=drname;
-dirname2=drname;
-
-fullpath_check;
-  Figure_start;
-  A_plot_data_label;
+load('R SIM.mat')
 msgbox('Result data are loaded')
 
-clear('fullpath','pathname','drname','t')
-clear('che','tekst')
 
 catch
     clc

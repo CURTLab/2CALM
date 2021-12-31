@@ -3,13 +3,8 @@
 clear('PP_Array1','PP_Array2')
 clear('CP_Array1','CP_Array2')
 %%%%%%%%%%%%%%%%%%%%%% 
-tic
-disp('CI for p-value calculation')
 
-[tpwg,apwg,mpwg]= and_term(tpwcr,tpwc,0.7);
- 
-
-
+%disp('CI for p-value calculation')
 %%%%%%%%%%%%%%%%  cross full between PR and CU kstest 
 
 
@@ -34,10 +29,18 @@ for i=1:A
     cvalt=pvalKS(CU_Array2(:,i),CU_Array1);
            CP_Array2(:,i)=cvalt';
 end
+
 clear('pvalt','cvalt')
 
-UU=0.25*PP_Array1+0.25*PP_Array2+0.25*KD_Array+0.25*KDR_Array;
+
+
+
+
+UU=0.20*PP_Array1+0.20*PP_Array2+0.3*KD_Array+0.3*KDR_Array;
 CW=0.2*CP_Array1+0.2*CP_Array2+0.3*KC_Array+0.3*KCR_Array;
+
+p_val_mix=mean(UU')';
+
 [CIPR,~]=CI_calcul_rapid(UU,alp,1);
 [CICU,~]=CI_calcul_rapid(CW,alp,1);
 
@@ -65,8 +68,7 @@ up(ep)=1;
 
 simmg=a_similarity_M(mpwg,alp);
 [simlg,simlvg] = a_similarity_L(lo,up,tpwg,alp);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-toc
+
 fig=0;
 if fig==1
 clear('crlo','crup','crtpw')

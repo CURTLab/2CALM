@@ -1,22 +1,4 @@
-
-if exist('PP','var')== 0
-[pa,~,P]=averagepval(PR_Array1,PR_Array2);
-PP=mean(P')';
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%% t-norm %%%%%%%%%%%%%%%
-%%%%%%%%%%% dens
-[tpwd,apwd,mpwd]= and_term(pd,pvalM',0.80);%%%%%%%%%%%%%%
-[tpwd1,apwd1,mpwd1]= and_term(pd,PP,0.5);
-[tpwcr,apwcr,mpwcr]= and_term(tpwd,tpwd1,0.5);
-%%%%%%%%%%%%%%%% curvat
-[tpwc,apwc,mpwc]= and_term(pc,cvalM',0.5);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[tpwg,apwg,mpwg]= and_term(tpwcr,tpwc,0.5);
-cross_pval_new;
-
-
+a_aggregation;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -32,13 +14,9 @@ else
     si=-1;
 end
 
-if TEST_R(3)*si>0
-warnun=0;
-else
-warnun=1;
-end
 
 
+if rys==1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 scrsz = get(0,'ScreenSize');
@@ -71,7 +49,7 @@ whitebg('w');
  
  
  suptitle(['Aggregated similarity statistic for ',num2str(A),' samples with ',num2str(M),' points \newline',exname1,' and ',exname2])
- 
+end
 %result_aggreg_avg=mpwg;
 %result_aggreg_simm=simmg;
 %result_aggreg_siml=simlg;

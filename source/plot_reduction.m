@@ -1,7 +1,7 @@
 
 if exist('dat2','var')==1
 
-clc
+
 scrsz = get(0,'ScreenSize');
 zz1=dat1(:,zi1);
 zz2=dat2(:,zi2);
@@ -22,7 +22,9 @@ plot(dat1(eppp,xi1),dat1(eppp,yi1),'.y','markersize',1)
 
 xlim([min(dat1(:,xi1)),max(dat1(:,xi1))])
 ylim([min(dat1(:,yi1)),max(dat1(:,yi1))])
-xlabel('nm','color','k')
+
+line([min(dat1(:,xi1))+100,min(dat1(:,xi1))+1100],[min(dat1(:,yi1))+100,min(dat1(:,yi1))+100],'color','w','LineWidth',4)
+xlabel('nm (white line 1000 nm)','color','k')
 ylabel('nm','color','k')
 title(['{\it S1} ',exname1,' (',num2str(N1),' points)'],'Fontsize',9,'FontWeight','normal','color','y')
 
@@ -35,17 +37,17 @@ whitebg('k')
  plot(dat2(eppn,xi2),dat2(eppn,yi2),'.b','markersize',1)
  hold on
  plot(dat2(eppp,xi2),dat2(eppp,yi2),'.y','markersize',1)
-
+line([min(dat2(:,xi1))+100,min(dat2(:,xi1))+1100],[min(dat2(:,yi1))+100,min(dat2(:,yi1))+100],'color','w','LineWidth',4)
  xlim([min(dat2(:,xi2)),max(dat2(:,xi2))])
  ylim([min(dat2(:,yi2)),max(dat2(:,yi2))])
-xlabel('nm','color','k')
+xlabel('nm (white line 1000 nm)','color','k')
 ylabel('nm','color','k')
 title(['{\it S2} ',exname2,' (',num2str(N2),' points)'],'Fontsize',9,'FontWeight','normal','color','y')
 suptitle(['Data taken to comparison. X-Y view. Yellow-posiv z, Blue-negativ z. Sample1= ',...
     num2str(N1),' Sample2= ',num2str(N2),' points'])
 
 else
-    clc
+  
     disp(' ');
     disp('Sample 2 do not exists. Please load data of sample 2');
     a_info_load;

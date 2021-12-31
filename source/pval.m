@@ -14,7 +14,7 @@ if isempty(t)
     else
         f = ones(1,length(f));
     end
-    [a idx]=min(abs(x-data));
+    [a,idx]=min(abs(x-data));
     pv=(2*f(idx)*(f(idx)<0.5))+(2*(1-f(idx))*(f(idx)>0.5));
 else
     for i=1:numel(t)
@@ -27,7 +27,7 @@ else
         else
             f = ones(1,length(f));
         end
-        [a idx]=min(abs(x-data(:,i)))
+        [a,idx]=min(abs(x-data(:,i)));
         pv(i)=(2*f(idx)*(f(idx)<=0.5))+(2*(1-f(idx))*(f(idx)>0.5));
     end
 end

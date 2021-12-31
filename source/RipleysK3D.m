@@ -68,8 +68,12 @@ lambda = N/v;
 else
 lambda = N/((box(2)-box(1))*(box(4)-box(3))*(box(6)-box(5)));
 end
+
+
+
 lambda=1;
 K = K/lambda;
+
 
 end
 

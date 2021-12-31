@@ -6,14 +6,14 @@ lok=rip_lok;
 upk=rip_upk;
 tpw=rip_tpw;
 pvalM=rip_pvalM;
-
+pvalCMM=rip_conz;
 A=rip_M;
-M=rip_M;
+M=rip_size;
 S_size=rip_size;
 simriplK=result_Ri_aggreg_siml;
 simripK=result_Ri_aggreg_simm;
 
-try
+
  if A==1
       p_val_K_singel = rip_ks ;
       p_val_W_singel=rip_w;
@@ -25,18 +25,9 @@ try
     rys_ripley_empiricp;
     tt_rys_resam_gen_ripley;
     rys_ripl_total;
+    rys_ripl_conzentr;
  end
 
- catch
-     close all
-     error_info;
-     A_start;
-   
- end
- 
- 
- 
- 
 
 clear('mpw','tpw','lok','upk','simriplK','simripK','S_size','A')
 
