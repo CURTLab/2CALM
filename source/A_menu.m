@@ -11,11 +11,12 @@ lista={'START CALCULATION',...          %task 1
 'PLOT TABLES RIPLEY',...                %task 7
 'PLOT TABLES DENSITY',...               %task 8
 'PLOT TABLES MLP',...                   %task 9
-'HISTOGRAMS',...                        %task 10
-'CLOSE ALL FIGURES',...                 %task 11
-'DELETE ALL RESULTS',...                %task 12
-'PLOT SERIES PARAMETER',...                %task 13
-'EXIT'};                                %task 14
+'PLOT CONFUSION',...                    %task 10
+'HISTOGRAMS',...                        %task 11
+'CLOSE ALL FIGURES',...                 %task 12
+'DELETE ALL RESULTS',...                %task 13
+'PLOT SERIES PARAMETER',...             %task 14
+'EXIT'};                                %task 15
 
 clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
