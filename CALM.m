@@ -1,9 +1,11 @@
-%CALM Version 4.2  (2-sample Comparative Analysis of 3D Localisation Microscopy data) 
+
+
+%CALM Version 2.1  (2-sample Comparative Analysis of 3D Localisation Microscopy data) 
 %is an analysis pipeline, which organizes localisation microscopy data into 
 %clusters of different dimensions and calculated the samples’ statistical parameters
 %using various numerical methods.
 %
-%   CALM Version 4.2 is the prototype software platform that allows a comparative analysis of 
+%   CALM Version 2.1 is the prototype software platform that allows a comparative analysis of 
 %   3D localisation microscopy data representing protein distributions in two biological samples. 
 %   The platform contains published functions (see comments in the function) 
 %   as well as many own functions and scripts (without comments).
@@ -37,21 +39,23 @@
 %  In the absence of these columns they will be automatically generated 
 %  with default values typical for this type of nanoscopic samples.
 %
-% Copyright 2018 - 2021 Jaroslaw Jacak, 
+%
+%
+% Copyright 2018 Jaroslaw Jacak, 
 % Medical Engineering Dept. Upper Austria University od Applied Sciences, Linz, Austria
 % This code may be freely used and distributed, so long as it maintains this copyright line
 
-addpath('source')
 
-Figure_start;
-clear('scrsz','T')
-try
-    A_start;
-catch
-    clc
+
+  Figure_start;
+  clear('scrsz','T')
+ try
+   A_start;
+ catch
+  clc
     disp('The program was aborted by the user')
     %user_stops
-end
+ end
   
   
   
