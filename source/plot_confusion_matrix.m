@@ -53,8 +53,10 @@ end
 ConfusionColormap = [0:1.0/255.0:1;0:1.0/255.0:1;ones(1,256)]';
 
 % set the percentage values
+h1 = figure;
+set(h1,'Position',[50 50 750 750])
 imagesc(confusion);
-title('Confusion Matrix');
+%title('Confusion Matrix');
 textStrings = num2str(confusion(:).*100, '%.1f%%\n');
 textStrings = strtrim(cellstr(textStrings));
 
@@ -73,6 +75,9 @@ set(gca,'XTick',1:NumSamp_B,...
     'YTick',1:NumSamp_A,...
     'YTickLabel',labels_A,...
     'TickLength',[0 0]);
+set(gca,'xcolor','k') 
+set(gca,'ycolor','k') 
+%
 xtickangle(45)
 
 clear('labels_A','labels_B','ConfusionColormap','prob','textStrings','midValue','textColors','hStrings')
