@@ -1,3 +1,5 @@
-
+# Ignore filetypes
 *.asv
 *.mat
+# But not these files
+!source/MLP.mat

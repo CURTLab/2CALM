@@ -2,8 +2,9 @@
 %%%%%%%%%%%%%%%%%% Data Loading and Info %%%%%%%%%%%%%%%
 
 if task==1
-    a_info_start;
-    answer_parameter;
+    %a_info_start;
+    %answer_parameter;
+    a_start_series;
     clear('btn','button','task')
     
 elseif task==2

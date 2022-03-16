@@ -1,3 +1,5 @@
+%% Part of series analyis
+
 clc
 clear
 
