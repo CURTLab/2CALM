@@ -1,4 +1,21 @@
-Init_data_store
+%Init_data_store
+load('series_settings.mat');
+
+Amds = imageDatastore(SampleDir1, ...
+    'IncludeSubfolders',true,'FileExtensions', ...
+    '.mat','LabelSource','foldernames');
+    
+Bmds = imageDatastore(SampleDir2, ...
+    'IncludeSubfolders',true,'FileExtensions', ...
+    '.mat','LabelSource','foldernames');
+
+clear('SampleDir1','SampleDir2');
+
+AlabelCount = numel(Amds.Labels);
+BlabelCount = numel(Bmds.Labels);
+
+NumSamp_A=AlabelCount;
+NumSamp_B=BlabelCount;
 
 confusion = zeros(NumSamp_A,NumSamp_B);
 
@@ -10,15 +27,19 @@ for iw=1:NumSamp_A
     close all
     fullpath1=Amds.Files{iw,1};
  
-    pathname1=[extractAfter(fullpath1,endtext)];
-    va=extractBefore(pathname1,'_');
-    vb=extractAfter(fullpath1,'_ORG\');
-    vb=extractBefore(vb,'_');
-    [~,basename,~]=fileparts(fullpath1);
-    li=find(basename == '_', 1, 'last');
-    vc=extractAfter(basename,li);
-    exname1=[vb,'-',va,'-',Atype,'-',vc];
-    clear('va','vb','vc','basename');
+   if isempty(SampleName1)
+        [~,exname1,~]=fileparts(fullpath1);
+    else
+        [~,basename,~]=fileparts(fullpath1);
+        li=find(basename == '_', 1, 'last');
+        if isempty(li)
+            vn=extractAfter(basename,li);
+        else
+            vn=num2str(iw);
+        end
+        exname1=[SampleName1,'-',vn];
+        clear('li','vn','basename','fullpath1')
+    end
     
     labels_A{iw} = exname1;
 end
@@ -28,16 +49,20 @@ for kw=1:NumSamp_B
     close all
     fullpath2=Bmds.Files{kw,1};
 
-    pathname2=[extractAfter(fullpath2,endtext)];
-    va=extractBefore(pathname2,'_');
-    vb=extractAfter(fullpath2,'_ORG\');
-    vb=extractBefore(vb,'_');
-    [~,basename,~]=fileparts(fullpath2);
-    li=find(basename == '_', 1, 'last');
-    vc=extractAfter(basename,li);
-    exname2=[vb,'-',va,'-',Btype,'-',vc];
-    clear('va','vb','vc','basename');
-
+    if isempty(SampleName1)
+        [~,exname2,~]=fileparts(fullpath2);
+    else
+        [~,basename,~]=fileparts(fullpath2);
+        li=find(basename == '_', 1, 'last');
+        if isempty(li)
+            vn=extractAfter(basename,li);
+        else
+            vn=num2str(kw);
+        end
+        exname2=[SampleName2,'-',vn];
+        clear('li','vn','basename','fullpath2')
+    end
+    
     labels_B{kw} = exname2;
 end
 
