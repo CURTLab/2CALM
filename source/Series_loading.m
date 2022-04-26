@@ -50,15 +50,19 @@ for iw=1:NumSamp_A
     fullpath1=Amds.Files{iw,1};
     load(fullpath1)
     
-    [~,basename,~]=fileparts(fullpath1);
-    li=find(basename == '_', 1, 'last');
-    if isempty(li)
-        vn=extractAfter(basename,li);
+    if isempty(SampleName1)
+        [~,exname1,~]=fileparts(fullpath1);
     else
-        vn=num2str(iw);
+        [~,basename,~]=fileparts(fullpath1);
+        li=find(basename == '_', 1, 'last');
+        if isempty(li)
+            vn=extractAfter(basename,li);
+        else
+            vn=num2str(iw);
+        end
+        exname1=[SampleName1,'-',vn];
+        clear('li','vn','basename','fullpath1')
     end
-    exname1=[SampleName1,'-',vn];
-    clear('li','vn','basename','fullpath1')
     
     yos(iw,1)={exname1};
     if exist('par','var') == 1
@@ -121,15 +125,19 @@ for iw=1:NumSamp_A
         fullpath2=Bmds.Files{kw,1};
         load(fullpath2)
         
-        [~,basename,~]=fileparts(fullpath2);
-        li=find(basename == '_', 1, 'last');
-        if isempty(li)
-            vn=extractAfter(basename,li);
+        if isempty(SampleName1)
+            [~,exname2,~]=fileparts(fullpath2);
         else
-            vn=num2str(kw);
+            [~,basename,~]=fileparts(fullpath2);
+            li=find(basename == '_', 1, 'last');
+            if isempty(li)
+                vn=extractAfter(basename,li);
+            else
+                vn=num2str(kw);
+            end
+            exname2=[SampleName2,'-',vn];
+            clear('li','vn','basename','fullpath2')
         end
-        exname2=[SampleName2,'-',vn];
-        clear('li','vn','basename','fullpath2')
         
         xos(1,kw)={exname2};
         
