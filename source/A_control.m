@@ -47,28 +47,24 @@ elseif task==9
     clear('btn','button','task')
     
 elseif task==10
-    plot_confusion_matrix;
-    clear('btn','button','task')
-    
-elseif task==11
     his_mlp_avp;
     clear('btn','button','task')
     
-elseif task==12
+elseif task==11
     close all;
     clear('btn','button','task')
     
-elseif task==13
+elseif task==12
     delete('Res*.mat');
     clear('btn','button','task')
     
-elseif task==14
+elseif task==13
     load('all_compar.mat')
     zz_all_pair_rys;
     z_average;
     clear('btn','button','task')
     
-elseif task==15
+elseif task==14
     close all
     clear('btn','button','task')
     user_stop

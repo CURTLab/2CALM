@@ -50,7 +50,7 @@
 %try
     A_menu;
     %setAlwaysOnTop(menuFig,true)
-    A_control
+    A_control;
     clear('task')
     A_start;
 
