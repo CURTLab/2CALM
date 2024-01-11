@@ -42,6 +42,7 @@
 % This code may be freely used and distributed, so long as it maintains this copyright line
 
 addpath('source')
+warning('off', 'MATLAB:appdesigner:appdesigner:SaveObjWarning')
   
 %try
 	A_start;

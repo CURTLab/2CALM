@@ -48,12 +48,19 @@ for iw=1:NumSamp_A
     close all
     %pathname1=[pathname01,num2str(iw),'.mat'];
     fullpath1=Amds.Files{iw,1};
-    load(fullpath1)
+    [~,fname, fext]=fileparts(fullpath1);
+    
+    % load matlab or loc file depended on file extension
+    if strcmp(fext, '.mat')
+        load(fullpath1)
+    elseif strcmp(fext, '.loc')
+        par = loadloc(fullpath1); 
+    end
     
     if isempty(SampleName1)
-        [~,exname1,~]=fileparts(fullpath1);
+        exname1 = fname;
     else
-        [~,basename,~]=fileparts(fullpath1);
+        basename = fname;
         li=find(basename == '_', 1, 'last');
         if isempty(li)
             vn=extractAfter(basename,li);
@@ -119,16 +126,22 @@ for iw=1:NumSamp_A
         para_name=[num2str(iw),'/',num2str(kw)];
         x_paren(1,gindex)={para_name};
         
-        
         tic
         close all
         fullpath2=Bmds.Files{kw,1};
-        load(fullpath2)
+        [~,fname, fext]=fileparts(fullpath2);
         
-        if isempty(SampleName1)
-            [~,exname2,~]=fileparts(fullpath2);
+        % load matlab or loc file depended on file extension
+        if strcmp(fext, '.mat')
+            load(fullpath2)
+        elseif strcmp(fext, '.loc')
+            par = loadloc(fullpath2); 
+        end
+
+        if isempty(SampleName2)
+            exname2 = fname;
         else
-            [~,basename,~]=fileparts(fullpath2);
+            basename = fname;
             li=find(basename == '_', 1, 'last');
             if isempty(li)
                 vn=extractAfter(basename,li);
